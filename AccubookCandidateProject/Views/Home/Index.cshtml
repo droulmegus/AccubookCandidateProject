@@ -17,20 +17,22 @@
             <a target="_blank" href="https://knockoutjs.com/documentation/foreach-binding.html">https://knockoutjs.com/documentation/foreach-binding.html</a>
         </li>
     </ul>
+    <p>Bootstrap documentation is available at <a target="_blank" href="https://getbootstrap.com/docs/5.2/getting-started/introduction/">https://getbootstrap.com/docs/5.2/getting-started/introduction/</a>.</p>
+    Use EntityFramework (HotelContext) for any tasks asking you to read or write data to the database.
 </div>
 
 <div class="row">
-    <div class="col-12 form-group">
+    <div class="col-12 mb-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Task #1 - .NET, WebApi, JavaScript, MVVM</h5>
+                <h5 class="card-title">Task #1 - .NET, EntityFramework, WebApi, JavaScript</h5>
                 <p class="card-text">
                     <ol>
                         <li>
                             Implement the <b>GetBookings</b> method in the <b>Bookings</b> controller.
                         </li>
                         <li>
-                            Implement the <b>getBookings</b> method in <b>app.ts</b> to retrieve data from the /api/bookings endpoint implemented above.
+                            Implement the <b>getBookings</b> method in <b>app.js</b> to retrieve data from the /api/bookings endpoint implemented above. (Note: Use fetch() for API calls)
                         </li>
                         <li>
                             At the moment the Booking data will display as a messy list. Adapt the HTML to display the bookings as a table using <b>Bootstrap</b>.
@@ -44,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 form-group">
+    <div class="col-12 mb-3">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Task #2 - .NET, MVC, Razor</h5>
@@ -74,28 +76,28 @@
             </div>
         </div>
     </div>
-    <div class="col-12 form-group">
+    <div class="col-12 mb-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Task #3 - JavaScript, jQuery</h5>
+                <h5 class="card-title">Task #3 - JavaScript, Bootstrap</h5>
                 <p class="card-text">
                     <ol>
                         <li>
                             Inspect the <b>Reviews</b> page.
                         </li>
                         <li>
-                            Implement the code for the <b>averageRating</b> method in <b>app.ts</b>. This should average the review score based on the reviews array. The value should be nicely rounded to 2 decimal places.
+                            Implement the code for the <b>averageRating</b> method in <b>app.js</b>. This should average the review score based on the reviews array. The value should be nicely rounded to 2 decimal places.
                         </li>
                         <li>
                             Figure out why the 'Post a review' button is not opening the modal.
                         </li>
                         <li class="mb-3">
                             Once you have the modal working, create a form using <b>Bootstrap</b> which takes in a <b>name</b> (string), <b>message</b> (string), and <b>rating</b> (number) input from the user.
-                            <h5 class="mt-3">Example form:</h5>
+                            <h5 class="mt-3">Example form (you may use a different type of input for the rating if you wish):</h5>
                             <img src="~/Content/img/review_modal.png" />
                         </li>
                         <li>
-                            Use <b>jQuery</b> to extract the values from the form and add the new Review to the existing array of reviews in the <b>addReview</b> method, which should make it appear on the Reviews page.
+                            Use JavaScript to extract the values from the form and add the new Review to the existing array of reviews in the <b>addReview</b> method, which should make it appear on the Reviews page.
                         </li>
                     </ol>
                 </p>
