@@ -1,76 +1,90 @@
 ﻿@{
-    ViewBag.Title = "Bookings";
+   ViewBag.Title = "Bookings";
 }
 
 <div>
-    <ul>
-        <!-- ko foreach: bookings -->
-        <li class="mb-2">
-            Id: <!-- ko text: id --><!-- /ko -->,
-            Booker: <!-- ko text: name --><!-- /ko -->,
-            Arriving: <!-- ko text: arrival --><!-- /ko -->,
-            Departing: <!-- ko text: departure --><!-- /ko -->,
-            Rate / night: €<!-- ko text: rate --><!-- /ko -->,
-            Total: €<!-- ko text: getTotal() --><!-- /ko -->,
-            Hotel: <!-- ko text: hotelName --><!-- /ko -->,
-        </li>
-        <!-- /ko -->
-    </ul>
-
-    <button class="btn btn-primary" data-toggle="modal" data-target="#addBooking">
-        Add a booking
-    </button>
+   <table class="table table-striped">
+      <thead>
+         <tr>
+            <th>Id</th>
+            <th>Booker</th>
+            <th>Arriving</th>
+            <th>Departing</th>
+            <th>Rate / night</th>
+            <th>Total</th>
+            <th>Hotel</th>
+         </tr>
+      </thead>
+      <tbody data-bind="foreach: bookings">
+         <tr>
+            <td data-bind="text: id"></td>
+            <td data-bind="text: name"></td>
+            <!--Used UTC string as it is a bit shorter/cleaner than the regular toString. I would need to implement a proper formatter utility for shorter dates -->
+            <td data-bind="text: arrival.toUTCString()"></td>
+            <td data-bind="text: departure.toUTCString()"></td>
+            <td data-bind="text: rate +`€`"></td>
+            <td data-bind="text: getTotal() + '€'"></td>
+            <td data-bind="text: hotelName"></td>
+         </tr>
+      </tbody>
+   </table>
+   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBooking">
+      Add a booking
+   </button>
 </div>
 
 <div id="addBooking" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add a booking</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Add a booking</h5>
+            <button type="button" class="close" data-dismiss="modal">
+               <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <!-- ko with: newBooking -->
+            <div class="mb-3">
+               <label>Name</label>
+               <input type="text" class="form-control" data-bind="value: name" />
             </div>
-            <div class="modal-body">
-                <!-- ko with: newBooking -->
-                <div class="mb-3">
-                    <label>Name</label>
-                    <input type="text" class="form-control" data-bind="value: name" />
-                </div>
-                <div class="mb-3">
-                    <label>Arrival</label>
-                    <input type="date" class="form-control" data-bind="value: arrival" />
-                </div>
-                <div class="mb-3">
-                    <label>Departure</label>
-                    <input type="date" class="form-control" data-bind="value: departure" />
-                </div>
-                <div class="mb-3">
-                    <label>Rate</label>
-                    <input type="number" class="form-control" data-bind="value: rate" />
-                </div>
-                <div class="mb-3">
-                    <label>Rate</label>
-                    <select class="form-control" data-bind="value: hotelId">
-                        <option value="1">Opportunity Hotel</option>
-                        <option value="2">Cozy Resort</option>
-                        <option value="3">Vertex Resort</option>
-                        <option value="4">Ancient Star Resort</option>
-                    </select>
-                </div>
-                <!-- /ko -->
+            <div class="mb-3">
+               <label>Arrival</label>
+               <input type="date" class="form-control" data-bind="value: arrival" />
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bind="click: function() { saveBooking(newBooking); }" data-dismiss="modal">
-                    Save Booking
-                </button>
+            <div class="mb-3">
+               <label>Departure</label>
+               <input type="date" class="form-control" data-bind="value: departure" />
             </div>
-        </div>
-    </div>
+            <div class="mb-3">
+               <label>Rate</label>
+               <input type="number" class="form-control" data-bind="value: rate" />
+            </div>
+            <div class="mb-3">
+               <label>Hotel</label>
+               <select class="form-control" data-bind="value: hotelId">
+                  <option value="1">Opportunity Hotel</option>
+                  <option value="2">Cozy Resort</option>
+                  <option value="3">Vertex Resort</option>
+                  <option value="4">Ancient Star Resort</option>
+               </select>
+            </div>
+            <!-- /ko -->
+            <div class="text-danger" data-bind="if: newBookingErrorMessage">
+               <div data-bind="text: newBookingErrorMessage"></div>
+            </div>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bind="click: function() { saveBooking(newBooking); }" data-dismiss="modal">
+               Save Booking
+            </button>
+         </div>
+      </div>
+   </div>
 </div>
 
 @section scripts {
-    <script>
-        app.getBookings();
-    </script>
+   <script>
+      app.getBookings();
+   </script>
 }

@@ -1,26 +1,41 @@
-﻿@{
-    ViewBag.Title = "Hotels";
+﻿@model AccubookCandidateProject.Models.HotelsViewModel
+
+@{
+   ViewBag.Title = "Hotels";
 }
 
-<div class="card mb-3">
-    <div class="card-body">
-        <h5 class="card-title">
-            <span class="badge bg-dark">#1</span> Sample Hotel
-        </h5>
-        <h6 class="card-subtitle mb-2 text-muted">
-            577 Main Street
-        </h6>
-        <p class="card-text">
-            <div>This hotel was booked 12 times.</div>
-            <div>The average rate per booking is €199.99.</div>
-            <div>Guests stay 3 nights on average</div>
-        </p>
-    </div>
-</div>
+@foreach (var hotel in Model.Hotels)
+{
+   /*Making sure the text is correct with the context.*/
+   var timesBookedText = "This hotel was never booked";
+   if (hotel.TimesBooked == 1)
+   {
+      timesBookedText = "This hotel was booked once";
+   }
+   else if (hotel.TimesBooked > 1)
+   {
+      timesBookedText = $"This hotel was booked {hotel.TimesBooked} times";
+   }
+   <div class="card mb-3">
+      <div class="card-body">
+         <h5 class="card-title">
+            <span class="badge bg-dark">#@hotel.Id</span> @hotel.Name
+         </h5>
+         <h6 class="card-subtitle mb-2 text-muted">
+            @hotel.Address
+         </h6>
+         <p class="card-text">
+            <div>@timesBookedText.</div>
+            <div>The average rate per booking is €@hotel.TotalBookingsValue.</div>
+            <div>Guests stay @hotel.AverageNightsStayed night@(hotel.AverageNightsStayed > 1?"s":"") on average.</div>
+         </p>
+      </div>
+   </div>
+
+}
 
 <div class="alert alert-info">
-    The hotels grossed a total of €23452.
+   The hotels grossed a total of €@Model.TotalBookingsValueForAllHotels.
 </div>
 
 <!-- your code here -->
-

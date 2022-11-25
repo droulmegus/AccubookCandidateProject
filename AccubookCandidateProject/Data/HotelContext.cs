@@ -6,22 +6,22 @@ using System.Reflection;
 
 namespace AccubookCandidateProject.Data
 {
-    public class HotelContext : DbContext
-    {
-        private readonly static string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
+   public class HotelContext : DbContext
+   {
+      private static readonly string binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase).Substring(6);
 
-        public HotelContext()
-            : base(new SQLiteConnection($"Data Source={Path.Combine(binPath, "app.sqlite")}"), true)
-        {
-            Database.SetInitializer<HotelContext>(null);
-        }
- 
-        public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
- 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
-    } 
+      public HotelContext()
+          : base(new SQLiteConnection($"Data Source={Path.Combine(binPath, "app.sqlite")}"), true)
+      {
+         Database.SetInitializer<HotelContext>(null);
+      }
+
+      public DbSet<Booking> Bookings { get; set; }
+      public DbSet<Hotel> Hotels { get; set; }
+
+      protected override void OnModelCreating(DbModelBuilder modelBuilder)
+      {
+         modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+      }
+   }
 }

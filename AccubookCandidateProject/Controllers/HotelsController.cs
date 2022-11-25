@@ -1,4 +1,5 @@
-﻿using AccubookCandidateProject.Data;
+﻿using AccubookCandidateProject.Logic;
+using AccubookCandidateProject.Data;
 using AccubookCandidateProject.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,28 +8,27 @@ using System.Web.Mvc;
 
 namespace AccubookCandidateProject.Controllers
 {
-    public class HotelsController : Controller
-    {
-        public ActionResult Index()
-        {
-            HotelContext db = new HotelContext();
-            List<HotelDTO> hotelDTOs = new List<HotelDTO>();
+   public class HotelsController : Controller
+   {
+      public ActionResult Index()
+      {
+         var manager = new HotelsManager();
+         /**
+          * A join on Bookings should be used instead of calling two distinct DBSets when one has an FK on the other.
+          * The Model is also missing from the page.
+          * */
+         var hotels = manager.List().Result;
+         var model = new HotelsViewModel
+         {
+            Hotels = hotels,
+            TotalBookingsValueForAllHotels = 0
+         };
+         foreach (var hotel in hotels)
+         {
+            model.TotalBookingsValueForAllHotels += hotel.TotalBookingsValue;
+         }
 
-            foreach (Hotel h in db.Hotels)
-            {
-                hotelDTOs.Add(new HotelDTO
-                {
-                    Id = h.Id,
-                    Name = h.Name,
-                    Address = h.Address,
-                    TimesBooked = db.Bookings.Where(b => b.HotelId == h.Id).Count(),
-                });
-            }
-
-            return View();
-
-            // your code here - the above code contains a performance pitfall
-            // identity/document the issue and rewrite the code with performance in mind
-        }
-    }
+         return View(model);
+      }
+   }
 }
